@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+
+<script src="ippt.js"></script>
+
+<script>
+var app = angular.module('app', ['ippt-utility', 'ui.bootstrap']);
+app.controller('testController', function($scope, Ippt) {
+
+        Ippt.loadData('/data/ippt-data.json')
+        .then(function(data) {
+            console.log(data);
+            $scope.age_groups = data.ippt.meta.age_groups;
+            $scope.stats = data.stats;
+
+            $scope.changeAgeGroup = function(ageGroup) {
+                $scope.stats = Ippt.setAgeGroup(ageGroup);
+            }
+
+            $scope.changePushUp = function(rep) {
+                $scope.stats = Ippt.setPushup(rep);
+            }
+
+            $scope.changeSitUp = function(rep) {
+                $scope.stats = Ippt.setSitup(rep);
+            }
+            $scope.changeRun = function(time) {
+                $scope.stats = Ippt.setRun(time);
+            }
+
+            $scope.secsToMinSec = function(seconds) {
+                seconds = parseInt(seconds, 10);
+                var min = Math.floor(seconds/60);
+                var sec = seconds - min * 60;
+
+                min = min < 10 ? "0" + min : min;
+                sec = sec < 10 ? "0" + sec : sec;
+
+                return min + ":" + sec;
+            }
+
+
+        })
+        .catch(function(error) {
+            console.log('error');
+        });
+});
+</script>
+</head>
+
+<body>
+<div ng-controller="testController" class="container">
+
+    <span ng-repeat="age_group in age_groups">
+        <button class="btn btn-primary" ng-click="changeAgeGroup($index)">{{age_group}}</button>
+    </span>
+
+    <h2>Score: {{stats.total_score}}</h2>
+
+    <div class="rows">
+        <div class="col-md-4">
+            <h2>Pushup</h2>
+            <h3>{{stats.attempt.pushup}}</h3>
+            <ul>
+                <li ng-repeat="(key, value) in stats.score_list.pushup"><a ng-click="changePushUp(key)">{{key}} ({{value.total_score}})</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <h2>Situp</h2>
+            <h3>{{stats.attempt.situp}}</h3>
+            <ul>
+                <li ng-repeat="(key, value) in stats.score_list.situp"><a ng-click="changeSitUp(key)">{{key}} ({{value.total_score}})</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <h2>2.4km</h2>
+            <h3>{{secsToMinSec(stats.attempt.run)}}</h3>
+            <ul>
+                <li ng-repeat="(key, value) in stats.score_list.run"><a ng-click="changeRun(key)">{{secsToMinSec(key)}} ({{value.total_score}})</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
