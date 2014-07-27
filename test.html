@@ -11,7 +11,7 @@
 var app = angular.module('app', ['ippt-utility', 'ui.bootstrap']);
 app.controller('testController', function($scope, Ippt) {
 
-        Ippt.loadData('/data/ippt-data.json')
+        Ippt.loadData('data/ippt-data.json')
         .then(function(data) {
             console.log(data);
             $scope.age_groups = data.ippt.meta.age_groups;
