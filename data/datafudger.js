@@ -6,10 +6,10 @@ function read_csv(filename, headers) {
                     split(',');
 
     var data = {};
-    for (var i=0;i<AGE_GROUPS.length;i++) {
+    for (var i = 0; i < AGE_GROUPS.length; i++) {
         data[i] = {};
-        for (var j=0;j<headers.length;j++) {
-            var value = raw_data[j*(AGE_GROUPS.length) + i];
+        for (var j = 0; j < headers.length; j++) {
+            var value = raw_data[j * (AGE_GROUPS.length) + i];
             value = parseInt(value, 10);
             data[i][headers[j]] = value;
         }
@@ -37,7 +37,8 @@ var slowest = 18*60 + 20;
 var fastest = 8*60 + 30;
 var run_header = [];
 var run_seconds = [];
-for (var i=slowest;i>=fastest;i-=10) {
+
+for (var i = slowest; i >= fastest; i -= 10) {
     var min = Math.floor(i/60);
     var sec = i - min * 60;
 
@@ -47,8 +48,9 @@ for (var i=slowest;i>=fastest;i-=10) {
     run_header.push(min + ":" + sec);
     run_seconds.push(i);
 }
+
 var sitpushup_header = [];
-for (var i=1;i<=60;i++) {
+for (var i = 1; i <= 60; i++) {
     sitpushup_header.push(i);
 }
 

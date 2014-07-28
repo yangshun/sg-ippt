@@ -64,9 +64,11 @@ ippt.factory('Ippt', function($q, $http) {
                 values[rep] = {score: score, total_score: delta_score + score}; 
             }
             stats.score_list[key] = values;
+            stats.score_list[key + '_sorted'] = Object.keys(values);
         }
 
         stats.attempt = attempt;
+        stats.score_list.run_sorted
         return stats;
     }
 
