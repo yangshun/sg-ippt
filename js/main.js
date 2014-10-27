@@ -1,12 +1,12 @@
 var app = angular.module('app', []);
 
-app.filter('reverse', function() {
+app.filter('reverse', function () {
   return function(items) {
     return items.slice().reverse();
   };
 });
 
-app.controller('testController', function($scope, $http) {
+app.controller('IPPTController', function ($scope, $http) {
 
   $scope.ageValues = _.range(18, 61);
   $scope.situpValues = _.range(1, 61);
@@ -63,7 +63,7 @@ app.controller('testController', function($scope, $http) {
     }, 0);
   }
 
-  $scope.secsToMinSec = function(seconds) {
+  $scope.secsToMinSec = function (seconds) {
     seconds = parseInt(seconds, 10);
     var min = Math.floor(seconds/60);
     var sec = seconds - min * 60;
@@ -149,7 +149,7 @@ app.controller('testController', function($scope, $http) {
     });
   }
 
-  $http.get('data/ippt-data.json').success(function(data, status) {
+  $http.get('data/ippt-data.json').success(function (data, status) {
     $scope.ipptData = data.data;
     $scope.updateScore();
   });
