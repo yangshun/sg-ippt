@@ -82,6 +82,7 @@ app.controller('IPPTController', function ($scope, $http) {
     runTiming = Math.max(510, Math.min(1100, runTiming))
     $scope.scores.run = $scope.ipptData['run'][$scope.ageGroup][runTiming.toString()];
     $scope.updateGoalThreshold();
+    syncSliders();
   }
 
   $scope.determineAward = function (score) {
@@ -147,6 +148,24 @@ app.controller('IPPTController', function ($scope, $http) {
       }
       $scope.goalThresholds[station] = threshold;
     });
+  }
+
+  $(document).ready(function () {
+    $('#situp-slider').on('mousemove', function () {
+      $scope.reps.situp = parseInt($('#situp-slider').attr('data-slider'));
+      $scope.updateScore();
+      $scope.$apply();
+    });
+    $('#pushup-slider').on('mousemove', function () {
+      $scope.reps.pushup = parseInt($('#pushup-slider').attr('data-slider'));
+      $scope.updateScore();
+      $scope.$apply();
+    })
+  });
+
+  function syncSliders () {
+    $('#situp-slider').foundation('slider', 'set_value', $scope.reps.situp);
+    $('#pushup-slider').foundation('slider', 'set_value', $scope.reps.pushup);
   }
 
   $http.get('data/ippt-data.json').success(function (data, status) {

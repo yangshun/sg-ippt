@@ -10,7 +10,7 @@
   <body>
     <div ng-controller="IPPTController" class="container">
       <div class="row">
-        <div class="small-12 medium-8 medium-offset-2 columns">
+        <div class="small-12 medium-10 medium-offset-1 columns">
           <div class="row">
             <div class="columns">
               <h1>IPPT Scorer</h1>
@@ -35,14 +35,21 @@
                     <th>Station</th>
                     <th>You Can Do</th>
                     <th>Points</th>
-                    <th>Minimum Required For {{goal}}<br><small>(Keeping others constant)</small></th>
+                    <th>Minimum Required<br>For {{goal}}<br><small>(Keeping others constant)</small></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>Sit-Ups</td>
                     <td>
-                      <select ng-model="reps.situp" ng-options="(value + ' reps') for value in situpValues" ng-change="updateScore()"></select>
+                      <div class="large-12-columns">
+                        <input type="text" ng-model="reps.situp" ng-change="updateScore()" id="situps">
+                      </div>
+                      <div class="range-slider" data-slider id="situp-slider" data-options="start: 1; end: 60; display_selector: #situps">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                        <input type="hidden">
+                      </div>
                     </td>
                     <td>
                       {{scores.situp}}
@@ -54,7 +61,14 @@
                   <tr>
                     <td>Push-Ups</td>
                     <td>
-                      <select ng-model="reps.pushup" ng-options="(value + ' reps') for value in pushupValues" ng-change="updateScore()"></select>
+                      <div class="large-12-columns">
+                        <input type="text" ng-model="reps.situp" ng-change="updateScore()" id="pushup">
+                      </div>
+                      <div class="range-slider" data-slider id="pushup-slider" data-options="start: 1; end: 60; display_selector: #pushup">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                        <input type="hidden">
+                      </div>
                     </td>
                     <td>
                       {{scores.pushup}}
@@ -86,20 +100,16 @@
                     <td colspan="2">
                       <strong>TOTAL POINTS</strong>
                     </td>
-                    <td>
+                    <td colspan="2">
                       {{totalScore()}}
-                    </td>
-                    <td>
                     </td>
                   </tr>
                   <tr>
                     <td colspan="2">
                       <strong>AWARD</strong>
                     </td>
-                    <td>
+                    <td colspan="2">
                       {{determineAward(totalScore())}}
-                    </td>
-                    <td>
                     </td>
                   </tr>
                 </tbody>
@@ -124,6 +134,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
     <script src="//underscorejs.org/underscore-min.js"></script>
     <script src="js/foundation.min.js"></script>
+    <script src="js/foundation/foundation.slider.js"></script>
     <script src="js/main.js"></script>
     <script>
       $(document).foundation();
