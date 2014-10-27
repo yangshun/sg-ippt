@@ -1,0 +1,19 @@
+.active {
+    border: 1px solid red;
+}
+.gold {
+    background-color: #fff401;
+}
+.silver {
+    background-color: #ccc;
+}
+.pass-incentive {
+    background-color: #c49400;
+}
+.pass {
+    background-color: #28df9c;
+}
+
+table {
+  width: 100%;
+}
