@@ -35,7 +35,7 @@
                     <th>Station</th>
                     <th>You Can Do</th>
                     <th>Points</th>
-                    <th>Minimum For {{goal}}</th>
+                    <th>Minimum Required For {{goal}}<br><small>(Keeping others constant)</small></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,7 +48,7 @@
                       {{scores.situp}}
                     </td>
                     <td>
-                      {{goalThresholds.situp}} reps
+                      {{goalThresholds.situp}}
                     </td>
                   </tr>
                   <tr>
@@ -60,7 +60,7 @@
                       {{scores.pushup}}
                     </td>
                     <td>
-                      {{goalThresholds.pushup}} reps
+                      {{goalThresholds.pushup}}
                     </td>
                   </tr>
                   <tr>
@@ -79,7 +79,7 @@
                       {{scores.run}}
                     </td>
                     <td>
-                      {{secsToMinSec(goalThresholds.run)}}
+                      {{goalThresholds.run}}
                     </td>
                   </tr>
                   <tr>
