@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Improved IPPT Score Calculator </title>
+		<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+		<link rel='stylesheet' href='css/bootstrap.css'>
+		<link rel='stylesheet' href='css/custom2.css'>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class='row'>
+				<h3>Improved IPPT Score Calculator</h3>
+			</div>
+		</div>
+		
+		<div id='body' class='container'>
+			<div class='row test-station shorter-row'>
+				<div class="col-xs-1">
+					<span class="inline">Age</span>
+				</div>
+				<div class="col-xs-5">	
+					<input style="width: 300px" type="number" id='age-score'>
+				</div>
+			</div>
+			<div class='row test-station shorter-row'>
+				<div class='col-xs-7'>
+					<input type='checkbox' id='commando-score'><label style='margin-left: 10px;'>Commando / Guardman / Diver </label>
+				</div>
+			</div>
+			<div class='row test-station shorter-row'>
+				<div class="col-xs-1">
+					<span class="inline">Situps</span>
+				</div>
+				<div class="col-xs-5">
+					<input style="width: 300px" type="number" id='situps-score' class='test-score'>
+				</div>
+				<div id='situps-suggest' class="col-xs-5 suggest">
+					Current: <span id='current'></span> -
+					Suggest: <span id='target'></span>
+				</div>
+			</div>
+			<div class='row test-station shorter-row'>
+				<div class="col-xs-1">
+					<span class="inline">Pushups</span>
+				</div>
+				<div class="col-xs-5">
+					<input style="width: 300px" type="number" id='pushups-score' class='test-score'>
+				</div>
+				<div id='pushups-suggest' class="col-xs-5 suggest">
+					Current: <span id='current'></span> -
+					Suggest: <span id='target'></span>
+				</div>
+			</div>
+			<div class='row test-station shorter-row'>
+				<div class="col-xs-1">
+					<span class="inline">2.4km Run</span>
+				</div>
+				<div class="col-xs-5">
+					<input style="width: 300px" type="number" id='run-score' class='test-score' placeholder="i.e: 1230 for 12 minutes 30 seconds">
+				</div>
+				<div id='run-suggest' class="col-xs-5 suggest">
+					Current: <span id='current'></span> -
+					Suggest: <span id='target'></span>
+				</div>
+			</div>
+			<div class='row'>
+				<div id='result' class="col-xs-5">
+				</div>
+			</div>
+			<div class='row'>
+				<div id='comment' class='col-xs-5'>
+				</div>
+			</div>
+		</div>
+		<div id='footer' class='row'>
+		</div>
+	</body>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-migrate.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src='js/custom2.js'></script>
+</html>

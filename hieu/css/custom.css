@@ -1,0 +1,29 @@
+input[type="tel"], label {
+	margin-bottom: 8px!important;
+	padding-bottom: 9px!important;
+}
+td.current {
+	background-color: #eee!important;
+	color: green!important;
+}
+label {
+	font-weight: bold;
+}
+label.score {
+	margin-left: 10px;
+}
+.meter {
+	width: 100%;
+}
+.meter td {
+	text-align: center;
+	padding: 2px;
+	color: #999;
+	border-right: 1px solid #eee;
+	font-size: 0.9em;
+}
+.meter td.head {
+	width: 30px;
+	text-align: left;
+	font-weight: bold;
+}

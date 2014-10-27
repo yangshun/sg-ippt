@@ -1,0 +1,29 @@
+.shorter-row {
+	width: 800px;
+}
+.inline {
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+.test-station {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.test-station input {
+	pointer-events: none;
+}
+
+#result {
+	font-weight: bold;
+	font-size: 36px;
+}
+#comment {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.suggest {
+	font-weight: bold;
+}
