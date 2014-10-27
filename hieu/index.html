@@ -1,126 +1,84 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>New IPPT Score Calculator</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-		<link rel="stylesheet" href="css/normalize.css">
-		<link rel="stylesheet" href="css/foundation.min.css">
-		<link rel="stylesheet" href="css/custom.css">
+		<title> Improved IPPT Score Calculator </title>
+		<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+		<link rel='stylesheet' href='css/bootstrap.css'>
+		<link rel='stylesheet' href='css/custom2.css'>
 	</head>
-	<body ng-app="ipptApp">
-		<div class="row" ng-controller="calculatorCtrl">
-			<div class="medium-6 columns medium-offset-3">
-				<h3>IPPT Score Calculator</h3>
 
-				<div class="row collapse">
-					<div class="small-4 columns">	
-						<label class="inline">Age</label>
-					</div>
-					<div class="small-4 columns left">	
-						<input type="tel" ng-model="person.age" ng-change="calculate()">
-					</div>
-				</div>
-
-				<div class="row collapse">
-					<div class="small-12 columns">	
-						<input id="commando" ng-model="person.commando" type="checkbox" ng-change="calculate()"><label for="commando">Commando / Diver / Guardsman</label>
-					</div>
-				</div>
-
-				<div class="row collapse">
-					<div class="small-4 columns">	
-						<label class="inline">Sit Ups</label>
-					</div>
-					<div class="small-4 columns left">	
-						<input type="tel" ng-disabled="!person.age" ng-model="person.sitUpCount" ng-change="calculate()">
-					</div>
-				</div>
-				<div class="row collapse" ng-hide="!person.age || !person.sitUpCount">
-					<div class="small-12 columns">
-						<table class="meter">
-							<tr>
-								<td class="head">Reps</td>
-								<td ng-repeat="m in sitUpMeter.reps track by $index" ng-class="{ 'current': m == person.sitUpCount }">{{m}}</td>
-							</tr>
-							<tr>
-								<td class="head">Pts</td>
-								<td ng-repeat="p in sitUpMeter.points track by $index" ng-class="{ 'current': p == points.sitUp }">{{p}}</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-
-				<div class="row collapse">
-					<div class="small-4 columns">	
-						<label class="inline">Push Ups</label>
-					</div>
-					<div class="small-4 columns left">	
-						<input type="tel" ng-disabled="!person.age" ng-model="person.pushUpCount" ng-change="calculate()">
-					</div>
-				</div>
-				<div class="row collapse" ng-hide="!person.age || !person.pushUpCount">
-					<div class="small-12 columns">
-						<table class="meter">
-							<tr>
-								<td class="head">Reps</td>
-								<td ng-repeat="m in pushUpMeter.reps track by $index" ng-class="{ 'current': m == person.pushUpCount }">{{m}}</td>
-							</tr>
-							<tr>
-								<td class="head">Pts</td>
-								<td ng-repeat="p in pushUpMeter.points track by $index" ng-class="{ 'current': p == points.pushUp }">{{p}}</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-
-				
-				<div class="row collapse">
-					<div class="small-4 columns">
-						<label class="inline">2.4km Run</label>	
-					</div>
-					<div class="small-2 columns left">
-						<input type="tel" ng-disabled="!person.age" placeholder="min" ng-model="person.runMin" ng-change="calculate()">
-					</div>
-					<div class="small-2 columns left">
-						<input type="tel" ng-disabled="!person.age" placeholder="sec" ng-model="person.runSec" ng-change="calculate()">
-					</div>
-				</div>
-				<div class="row collapse" ng-hide="!person.age || runMeter.timing.length == 0">
-					<div class="small-12 columns">
-						<table class="meter">
-							<tr>
-								<td class="head">Time</td>
-								<td ng-repeat="m in runMeter.timing track by $index" ng-class="{ 'current': m.current }">{{m.timing}}</td>
-							</tr>
-							<tr>
-								<td class="head">Pts</td>
-								<td ng-repeat="p in runMeter.points track by $index" ng-class="{ 'current': p == points.running }">{{p}}</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				
-				<h4 ng-show="points.total > 0" class="left">
-					{{ points.total }}pts ({{ points.award }}) <small>{{ comments }}</small>
-				</h4>
+	<body>
+		<div class="container">
+			<div class='row'>
+				<h3>Improved IPPT Score Calculator</h3>
 			</div>
 		</div>
-		<!-- <div class="row">
-			<div class="medium-6 columns medium-offset-3">
-				<hr>
-				<small>
-					Built in AngularJS by <a href="https://www.linkedin.com/in/johnldz" target="_blank">John Luo</a>. Source code on <a href="https://github.com/johnldz/IPPT-Calculator" target="_blank">GitHub</a>.<br/>
-					Questions, comments? Reach me at <a href="mailto:johnldz@icloud.com">johnldz@icloud.com</a>
-				</small>
-			</div>
-		</div> -->
-
-		<script type="text/javascript">
 		
-		</script>
+		<div id='body' class='container'>
+			<div class='row test-station shorter-row'>
+				<div class="col-xs-1">
+					<span class="inline">Age</span>
+				</div>
+				<div class="col-xs-5">	
+					<input style="width: 300px" type="number" id='age-score'>
+				</div>
+			</div>
+			<div class='row test-station shorter-row'>
+				<div class='col-xs-7'>
+					<input type='checkbox' id='commando-score'><label style='margin-left: 10px;'>Commando / Guardman / Diver </label>
+				</div>
+			</div>
+			<div class='row test-station shorter-row'>
+				<div class="col-xs-1">
+					<span class="inline">Situps</span>
+				</div>
+				<div class="col-xs-5">
+					<input style="width: 300px" type="number" id='situps-score' class='test-score'>
+				</div>
+				<div id='situps-suggest' class="col-xs-5 suggest">
+					Current: <span id='current'></span> -
+					Suggest: <span id='target'></span>
+				</div>
+			</div>
+			<div class='row test-station shorter-row'>
+				<div class="col-xs-1">
+					<span class="inline">Pushups</span>
+				</div>
+				<div class="col-xs-5">
+					<input style="width: 300px" type="number" id='pushups-score' class='test-score'>
+				</div>
+				<div id='pushups-suggest' class="col-xs-5 suggest">
+					Current: <span id='current'></span> -
+					Suggest: <span id='target'></span>
+				</div>
+			</div>
+			<div class='row test-station shorter-row'>
+				<div class="col-xs-1">
+					<span class="inline">2.4km Run</span>
+				</div>
+				<div class="col-xs-5">
+					<input style="width: 300px" type="number" id='run-score' class='test-score' placeholder="i.e: 1230 for 12 minutes 30 seconds">
+				</div>
+				<div id='run-suggest' class="col-xs-5 suggest">
+					Current: <span id='current'></span> -
+					Suggest: <span id='target'></span>
+				</div>
+			</div>
+			<div class='row'>
+				<div id='result' class="col-xs-5">
+				</div>
+			</div>
+			<div class='row'>
+				<div id='comment' class='col-xs-5'>
+				</div>
+			</div>
+		</div>
+		<div id='footer' class='row'>
+		</div>
 	</body>
-	<script src="js/foundation.min.js"></script>
+
 	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-migrate.js"></script>
 	<script src="js/angular.min.js"></script>
-	<script src="js/script.js"></script>
+	<script src='js/custom2.js'></script>
 </html>
