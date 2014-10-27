@@ -77,7 +77,26 @@
                       {{goalThresholds.pushup}}
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="clickable" ng-click="focusInput('#run')">
+                    <td>2.4KM Run</td>
+                    <td>
+                      <div class="large-12-columns">
+                        <input type="text" ng-model="reps.run" ng-change="updateScore()" id="run">
+                      </div>
+                      <div class="range-slider" data-slider id="run-slider" data-options="start: 1; end: 60; display_selector: #run">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                        <input type="hidden">
+                      </div>
+                    </td>
+                    <td>
+                      {{scores.run}}
+                    </td>
+                    <td>
+                      {{goalThresholds.run}}
+                    </td>
+                  </tr>
+                  <tr style="display:none">
                     <td>2.4KM Run</td>
                     <td>
                       <div class="row">
