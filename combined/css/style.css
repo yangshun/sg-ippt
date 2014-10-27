@@ -17,3 +17,8 @@
 table {
   width: 100%;
 }
+
+tr.clickable:hover {
+  outline: 1px solid teal;
+  cursor: pointer;
+}

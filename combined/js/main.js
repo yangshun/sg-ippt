@@ -163,6 +163,10 @@ app.controller('IPPTController', function ($scope, $http) {
     })
   });
 
+  $scope.focusInput = function (selector) {
+    $(selector).focus();
+  };
+
   function syncSliders () {
     $('#situp-slider').foundation('slider', 'set_value', $scope.reps.situp);
     $('#pushup-slider').foundation('slider', 'set_value', $scope.reps.pushup);
