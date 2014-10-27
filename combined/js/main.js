@@ -22,14 +22,23 @@ app.controller('IPPTController', function ($scope, $http) {
     'Pass': 51
   };
 
-  $scope.age = 25;
-  $scope.reps = {
-    situp: 33,
-    pushup: 20,
-    runMin: 12,
-    runSec: 30,
-    run: 750
-  };
+  var savedData = JSON.parse(localStorage.getItem('savedData'));
+  
+  if (!savedData) {
+    savedData = {
+      age: 25,
+      reps: {
+        situp: 33,
+        pushup: 20,
+        run: 750
+      },
+      goal: 'Pass'
+    }
+  }
+
+  $scope.age = savedData.age;
+  $scope.reps = savedData.reps;
+  $scope.goal = savedData.goal;
 
   $scope.goalThresholds = {
     situp: 0,
@@ -47,7 +56,6 @@ app.controller('IPPTController', function ($scope, $http) {
 
   $scope.scores = resetScore();
 
-  $scope.goal = 'Pass';
 
   function determineAgeGroup (age) {
     var ageUpperBrackets = [21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60];
@@ -85,6 +93,15 @@ app.controller('IPPTController', function ($scope, $http) {
     $scope.scores.run = $scope.ipptData['run'][$scope.ageGroup][runTiming.toString()];
     $scope.updateGoalThreshold();
     syncSliders();
+    saveData();
+  }
+
+  function saveData () {
+    var savedData = {};
+    savedData.age = $scope.age;
+    savedData.reps = $scope.reps;
+    savedData.goal = $scope.goal;
+    localStorage.setItem('savedData', JSON.stringify(savedData));
   }
 
   $scope.determineAward = function (score) {
