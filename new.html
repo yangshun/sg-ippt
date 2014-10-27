@@ -35,7 +35,7 @@
                     <th>Station</th>
                     <th>You Can Do</th>
                     <th>Points</th>
-                    <th>You Must Not Fall Below</th>
+                    <th>Minimum For {{goal}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,6 +48,7 @@
                       {{scores.situp}}
                     </td>
                     <td>
+                      {{goalThresholds.situp}} reps
                     </td>
                   </tr>
                   <tr>
@@ -59,6 +60,7 @@
                       {{scores.pushup}}
                     </td>
                     <td>
+                      {{goalThresholds.pushup}} reps
                     </td>
                   </tr>
                   <tr>
@@ -77,6 +79,7 @@
                       {{scores.run}}
                     </td>
                     <td>
+                      {{secsToMinSec(goalThresholds.run)}}
                     </td>
                   </tr>
                   <tr>
@@ -109,7 +112,7 @@
             </div>
             <div class="small-6 columns">
               <!-- <select ng-model="age" ng-options="label for (value, value) in ages"></select> -->
-              <select ng-model="goal" ng-options="value as value for value in awards" ng-change="updateScore()"></select>
+              <select ng-model="goal" ng-options="value as value for value in awards" ng-change="updateGoalThreshold()"></select>
             </div>
           </div>
 

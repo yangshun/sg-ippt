@@ -9,18 +9,31 @@ app.filter('reverse', function() {
 app.controller('testController', function($scope, $http) {
 
   $scope.ageValues = _.range(18, 61);
-  $scope.situpValues = _.range(0, 61);
-  $scope.pushupValues = _.range(0, 61);
+  $scope.situpValues = _.range(1, 61);
+  $scope.pushupValues = _.range(1, 61);
   $scope.runMinValues = _.range(8, 19);
   $scope.runSecValues = _.range(0, 51, 10);
   $scope.awards = ['Gold', 'Silver', 'Pass(NSMen)', 'Pass'];
   
+  var scoreMapping = {
+    'Gold': 80,
+    'Silver': 70,
+    'Pass(NSMen)': 60,
+    'Pass': 50
+  };
+
   $scope.age = 25;
   $scope.reps = {
     situp: 33,
     pushup: 20,
     runMin: 12,
     runSec: 30,
+  };
+
+  $scope.goalThresholds = {
+    situp: 0,
+    pushup: 0,
+    run: 0
   };
 
   function resetScore () {
@@ -67,6 +80,7 @@ app.controller('testController', function($scope, $http) {
     $scope.scores.pushup = $scope.ipptData['pushup'][$scope.ageGroup][$scope.reps.pushup];
     var runTiming = parseInt($scope.reps.runMin) * 60 + parseInt($scope.reps.runSec); 
     $scope.scores.run = $scope.ipptData['run'][$scope.ageGroup][runTiming.toString()];
+    $scope.updateGoalThreshold();
   }
 
   $scope.determineAward = function (score) {
@@ -83,30 +97,28 @@ app.controller('testController', function($scope, $http) {
     }
   }
 
-  // $scope.determineColor = function (station, score) {
-  //   if (station !== $scope.variableStation) {
-  //     return '';
-  //   }
-  //   var scores = angular.copy($scope.scores);
-  //   scores = _.omit(scores, station);
-  //   var otherScore =_.reduce(_.values(scores), function (memo, num) { 
-  //     return memo + num; 
-  //   }, 0);
-  //   console.log(station, otherScore);
-  //   var totalScore = score + otherScore;
-  //   if (totalScore > 80) {
-  //     return 'gold';
-  //   }
-  //   if (totalScore > 70) {
-  //     return 'silver';
-  //   }
-  //   if (totalScore > 60) {
-  //     return 'pass-incentive';
-  //   }
-  //   if (totalScore > 50) {
-  //     return 'pass';
-  //   }
-  // }
+  $scope.updateGoalThreshold = function () {
+    var minScoreNeeded = scoreMapping[$scope.goal];
+    var stations = ['situp', 'pushup', 'run'];
+    var totalScore = $scope.totalScore();
+
+    _.each(stations, function (station) {
+      var otherStationScore = totalScore - $scope.scores[station];
+      var minStationScore = Math.max(minScoreNeeded - otherStationScore, 0);
+      
+      var vals = _.invert($scope.ipptData[station][$scope.ageGroup]);
+      var keys = _.keys(vals);
+      keys.sort();
+      var minScore = 0;
+      for (var i = 0; i < keys.length; i++) {
+        if (minStationScore >= keys[i]) {
+          minScore = keys[i];
+        }
+      }
+      $scope.goalThresholds[station] = vals[minScore];
+      console.log(station, minStationScore);
+    });
+  }
 
   $http.get('data/ippt-data.json').success(function(data, status) {
     $scope.ipptData = data.data;
