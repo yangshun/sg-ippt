@@ -13,12 +13,12 @@ app.controller('testController', function($scope, $http) {
   $scope.pushupValues = _.range(1, 61);
   $scope.runMinValues = _.range(8, 19);
   $scope.runSecValues = _.range(0, 51, 10);
-  $scope.awards = ['Gold', 'Silver', 'Pass(NSMen)', 'Pass'];
+  $scope.awards = ['Gold', 'Silver', 'Pass (Incentive)', 'Pass'];
   
   var scoreMapping = {
     'Gold': 81,
     'Silver': 71,
-    'Pass(NSMen)': 61,
+    'Pass (Incentive)': 61,
     'Pass': 51
   };
 
@@ -46,7 +46,7 @@ app.controller('testController', function($scope, $http) {
 
   $scope.scores = resetScore();
 
-  $scope.goal = 'Gold';
+  $scope.goal = 'Pass';
 
   function determineAgeGroup (age) {
     var ageUpperBrackets = [21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60];
@@ -68,10 +68,10 @@ app.controller('testController', function($scope, $http) {
     var min = Math.floor(seconds/60);
     var sec = seconds - min * 60;
 
-    min = min < 10 ? "0" + min : min;
-    sec = sec < 10 ? "0" + sec : sec;
+    min = min < 10 ? '0' + min : min;
+    sec = sec < 10 ? '0' + sec : sec;
 
-    return min + ":" + sec;
+    return min + ':' + sec;
   }
 
   $scope.updateScore = function () {
@@ -109,7 +109,6 @@ app.controller('testController', function($scope, $http) {
       if ((station === 'situp' && minStationScore > 25) ||
           (station === 'pushup' && minStationScore > 25) ||
           (station === 'run' && minStationScore > 50)) {
-        console.log('minStationScore', station, minStationScore);
         $scope.goalThresholds[station] = 'Impossible!';
         return;
       }
@@ -132,7 +131,6 @@ app.controller('testController', function($scope, $http) {
 
       for (var i = 0; i < keys.length; i++) {
         if (minStationScore >= keys[i]) {
-          console.log(minStationScore, keys[i])
           minScore = keys[i];
           possible = true;
         }
