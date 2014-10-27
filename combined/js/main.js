@@ -28,6 +28,7 @@ app.controller('IPPTController', function ($scope, $http) {
     pushup: 20,
     runMin: 12,
     runSec: 30,
+    run: 750
   };
 
   $scope.goalThresholds = {
@@ -78,8 +79,9 @@ app.controller('IPPTController', function ($scope, $http) {
     $scope.ageGroup = determineAgeGroup($scope.age);
     $scope.scores.situp = $scope.ipptData['situp'][$scope.ageGroup][$scope.reps.situp];
     $scope.scores.pushup = $scope.ipptData['pushup'][$scope.ageGroup][$scope.reps.pushup];
-    var runTiming = parseInt($scope.reps.runMin) * 60 + parseInt($scope.reps.runSec);
-    runTiming = Math.max(510, Math.min(1100, runTiming))
+    runTiming = parseInt($scope.reps.run);
+    runTiming = Math.floor((runTiming+9)/10) * 10;
+    runTiming = runnify(runTiming);
     $scope.scores.run = $scope.ipptData['run'][$scope.ageGroup][runTiming.toString()];
     $scope.updateGoalThreshold();
     syncSliders();
@@ -87,15 +89,30 @@ app.controller('IPPTController', function ($scope, $http) {
 
   $scope.determineAward = function (score) {
     if (score <= 50) {
-      return 'Fail';
+      return {
+        name: 'Fail',
+        id: 'fail'
+      };
     } else if (score <= 60) {
-      return 'Pass';
+      return {
+        name: 'Pass',
+        id: 'pass'
+      };
     } else if (score <= 70) {
-      return 'Pass (Incentive)';
+      return {
+        name: 'Pass (Incentive)',
+        id: 'pass-incentive'
+      };
     } else if (score <= 80) {
-      return 'Silver';
+      return {
+        name: 'Silver',
+        id: 'silver'
+      };
     } else {
-      return 'Gold';
+      return {
+        name: 'Gold',
+        id: 'gold'
+      };
     }
   }
 
@@ -160,16 +177,33 @@ app.controller('IPPTController', function ($scope, $http) {
       $scope.reps.pushup = parseInt($('#pushup-slider').attr('data-slider'));
       $scope.updateScore();
       $scope.$apply();
-    })
+    });
+    $('#run-slider').on('mousemove', function () {
+      $scope.reps.run = parseInt($('#run-slider').attr('data-slider'));
+      $scope.updateScore();
+      $scope.reps.runRaw = $scope.secsToMinSec($scope.reps.run);
+      $scope.$apply();
+    });
   });
 
   $scope.focusInput = function (selector) {
     $(selector).focus();
   };
 
+  function runnify(val) {
+    return Math.max(510, Math.min(1100, val));
+  }
+
+  $scope.updateRun = function () {
+    var runStr = $scope.reps.runRaw.split(':');
+    $scope.reps.run = runnify(parseInt(runStr[0]) * 60 + parseInt(runStr[1]));
+    $scope.updateScore(); 
+  }
+
   function syncSliders () {
     $('#situp-slider').foundation('slider', 'set_value', $scope.reps.situp);
     $('#pushup-slider').foundation('slider', 'set_value', $scope.reps.pushup);
+    $('#run-slider').foundation('slider', 'set_value', $scope.reps.run);
   }
 
   $http.get('data/ippt-data.json').success(function (data, status) {

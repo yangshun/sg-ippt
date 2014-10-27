@@ -1,17 +1,17 @@
-.active {
-    border: 1px solid red;
-}
 .gold {
-    background-color: #fff401;
+  background-color: #fff401;
 }
 .silver {
-    background-color: #ccc;
+  background-color: #ccc;
 }
 .pass-incentive {
-    background-color: #c49400;
+  background-color: teal;
 }
 .pass {
-    background-color: #28df9c;
+  background-color: #28df9c;
+}
+.fail {
+  background-color: red;
 }
 
 table {
@@ -19,6 +19,7 @@ table {
 }
 
 tr.clickable:hover {
+  background-color: #eee;
   outline: 1px solid teal;
   cursor: pointer;
 }
