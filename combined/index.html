@@ -28,6 +28,15 @@
             </div>
           </div>
           <div class="row">
+            <div class="small-6 columns">
+              What is your goal?
+            </div>
+            <div class="small-6 columns">
+              <!-- <select ng-model="age" ng-options="label for (value, value) in ages"></select> -->
+              <select ng-model="goal" ng-options="value as value for value in awards" ng-change="updateGoalThreshold()"></select>
+            </div>
+          </div>
+          <div class="row">
             <div class="small-12 columns">
               <table>
                 <thead>
@@ -116,16 +125,6 @@
               </table>
             </div>
           </div>
-          <div class="row">
-            <div class="small-6 columns">
-              What is your goal?
-            </div>
-            <div class="small-6 columns">
-              <!-- <select ng-model="age" ng-options="label for (value, value) in ages"></select> -->
-              <select ng-model="goal" ng-options="value as value for value in awards" ng-change="updateGoalThreshold()"></select>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
